@@ -113,12 +113,16 @@ class SeaofBTCapp(tk.Tk):
 
         #tk.Tk.iconbitmap(self, default="clienticon.ico")
         tk.Tk.wm_title(self, "Spectral Clustering") 
+
+        style = ttk.Style()
         
-        container = tk.Frame(self)#, width=550, height=450
-        #container.pack(side="top", fill="both", expand = True)
-        container.grid(row=0, column=0, sticky=tk.NSEW)
-        container.grid_rowconfigure(0, weight=1)
-        container.grid_columnconfigure(0, weight=1)
+        style.configure("My.TFrame", background=color_bg, foreground=color_bg)
+        
+        container = ttk.Frame(self, style="My.TFrame")#, width=550, height=450
+        container.pack(side="top", fill="both", expand = True)
+        #container.grid(row=0, column=0, sticky="nsew")
+        #container.grid_rowconfigure(0, weight=1)
+        #container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
         
@@ -129,8 +133,9 @@ class SeaofBTCapp(tk.Tk):
 
         self.frames[F] = frame
         frame.config(bg=color_bg)
-
-        frame.grid(row=0, column=0, sticky="nsew")
+        
+        frame.pack(side="top", fill="both", expand=True)
+        #frame.grid(row=0, column=0, sticky="nsew")
         #frame.grid_rowconfigure(0, weight=1)
         #frame.grid_columnconfigure(0, weight=1)
 
@@ -206,24 +211,39 @@ class PageThree(tk.Frame):
         #self.grid_columnconfigure(0, weight=1)
         #self.grid_rowconfigure(0, weight=1)
         
-
-
-        style = ttk.Style(mainframe)
         #tk.Tk.style = ttk.Style()
         #('winnative', 'clam', 'alt', 'default', 'classic', 'vista', 
         #'xpnative')
         #tk.Tk.style.theme_use("vista")
         #style.theme_use("clam")
+
+        style = ttk.Style(mainframe)
+        
         style.configure("My.TFrame", background=color_bg, foreground=color_bg)
         style.configure("My.TNotebook", background=color_bg, foreground=color_bg)
         style.configure("TNotebook.Tab", background=color_bg, foreground=color_bg)
         style.configure("My.TRadiobutton", background=color_bg, foreground=color_text)
 
 
+        self.grid_columnconfigure(0, weight=1)
+        self.grid_columnconfigure(1, weight=1)
+        self.grid_columnconfigure(2, weight=1)
+        self.grid_columnconfigure(3, weight=1)
+        self.grid_columnconfigure(4, weight=1)
+
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_rowconfigure(1, weight=1)
+        self.grid_rowconfigure(2, weight=1)
+        self.grid_rowconfigure(3, weight=1)
+        self.grid_rowconfigure(4, weight=1)
+        self.grid_rowconfigure(5, weight=1)
+        self.grid_rowconfigure(6, weight=1)
+
 
         tabControl = ttk.Notebook(self, style="My.TNotebook") 
         self.tab1 = ttk.Frame(tabControl, style="My.TFrame")            
-        tabControl.add(self.tab1, text='Graph')      
+        tabControl.add(self.tab1, text='Graph')   
+        
      
         self.tab2 = ttk.Frame(tabControl, style="My.TFrame")            
         tabControl.add(self.tab2, text='Eigenvectors')  
@@ -231,6 +251,24 @@ class PageThree(tk.Frame):
         self.tab3 = ttk.Frame(tabControl, style="My.TFrame")            
         tabControl.add(self.tab3, text='PCA') 
         
+        self.tab1.grid_columnconfigure(0, weight=1)
+        self.tab1.grid_columnconfigure(5, weight=1)
+        self.tab2.grid_columnconfigure(0, weight=1)
+        self.tab2.grid_columnconfigure(1, weight=1)
+        self.tab3.grid_columnconfigure(0, weight=1)
+        #self.grid_columnconfigure(3, weight=1)
+        #self.grid_columnconfigure(4, weight=1)
+
+        self.tab1.grid_rowconfigure(0, weight=1)
+        self.tab1.grid_rowconfigure(1, weight=1)
+        self.tab1.grid_rowconfigure(2, weight=1)
+        self.tab1.grid_rowconfigure(3, weight=1)
+        self.tab2.grid_rowconfigure(0, weight=1)
+        self.tab2.grid_rowconfigure(1, weight=1)
+        self.tab2.grid_rowconfigure(2, weight=1)
+        self.tab3.grid_rowconfigure(0, weight=1)
+        #self.grid_rowconfigure(3, weight=1)
+        #self.grid_rowconfigure(4, weight=1)
         
         tabControl.grid(row=0, column=0, rowspan=7, padx=5, pady=5, sticky=tk.NSEW) 
         tabControl.grid_columnconfigure(0, weight=1)
@@ -254,17 +292,32 @@ class PageThree(tk.Frame):
 
         ####Heatmap
         self.frameHeatmap = ttk.Frame(self, style="My.TFrame")
-        self.frameHeatmap.grid(row=2, column=2)
+        self.frameHeatmap.grid_columnconfigure(0, weight=1)
+        self.frameHeatmap.grid_columnconfigure(1, weight=1)
+        self.frameHeatmap.grid_columnconfigure(2, weight=1)
+        self.frameHeatmap.grid_rowconfigure(0, weight=1)
+        self.frameHeatmap.grid_rowconfigure(1, weight=1)
+
+
+        self.frameHeatmap.grid(row=2, column=2, sticky=tk.NSEW)
         lab3=tk.Label(self.frameHeatmap, text="Type of Laplacian Matrix:", bg=color_bg, fg=color_text)
         lab3.grid(row=0, column=0, padx=5)
-        
+        #lab3.pack(side="left")
+
         X, y = ds.make_blobs(n_samples=samples)
         fig = plt.Figure(figsize=(6,5.5), dpi=100)
 
 
         #####Eigenvalues
         self.frameEigenG = ttk.Frame(self, style="My.TFrame")
-        self.frameEigenG.grid(row=4, column=2)
+        self.frameEigenG.grid(row=4, column=2, sticky=tk.NSEW)
+        self.frameEigenG.grid_columnconfigure(0, weight=1)
+        self.frameEigenG.grid_columnconfigure(1, weight=1)
+        self.frameEigenG.grid_columnconfigure(2, weight=1)
+        self.frameEigenG.grid_rowconfigure(0, weight=1)
+        self.frameEigenG.grid_rowconfigure(1, weight=1)
+
+
 
         self.figEigVal = Figure(figsize=(3.5,1.5), dpi=100)
         self.figEigVal.patch.set_facecolor(color_bg)
@@ -274,6 +327,10 @@ class PageThree(tk.Frame):
           "axes.labelcolor" : color_text,
           "axes.edgecolor" : color_text}
         plt.rcParams.update(params)
+
+
+
+        #self.frameSlidersAndButtons = ttk.Frame(self.tab1, style="My.TFrame")
 
         ##Setup
         self.setup()
@@ -287,7 +344,8 @@ class PageThree(tk.Frame):
 
         buttonLoad = ttk.Button(self.tab1, text="Load Data",
                             command=click_LoadData)
-        buttonLoad.grid(row=5, column=4, padx=5, sticky=tk.E)
+        buttonLoad.grid(row=10, column=4, padx=5, sticky=tk.E)
+        #buttonLoad.pack(side="left", expand=True)
         
         ####Toolbar
         #toolbarFrame = ttk.Frame(self.tab1, style="My.TFrame")
@@ -301,7 +359,7 @@ class PageThree(tk.Frame):
 
         #####Slider k, e and gaussian
         frameSimGraph = ttk.Frame(self, style="My.TFrame")
-        frameSimGraph.grid(row=0, column=2, pady=10)
+        frameSimGraph.grid(row=0, column=2, pady=10, sticky=tk.NSEW)
         self.chooseGraph = tk.StringVar(frameSimGraph)
         choices = { 'kNN','epsilon','complete', 'gaussian'}
         #chooseGraph.set('kNN')
@@ -437,6 +495,7 @@ class PageThree(tk.Frame):
 
         
         popupMenuMatrix.grid(row = 0, column =1, padx=5)
+        #popupMenuMatrix.pack(side="top")
         self.chooseMatrix.trace('w', change_chooseMatrix)
 
 
@@ -447,7 +506,7 @@ class PageThree(tk.Frame):
         #######choose Algorithm
         style.configure("TMenubutton", background=color_text)
         frameBottom = ttk.Frame(self, style="My.TFrame")
-        frameBottom.grid(row=6, column=2, pady=10)
+        frameBottom.grid(row=6, column=2, pady=10, sticky=tk.NSEW)
         chooseAlgo = tk.StringVar(frameBottom)
         choices = { 'kmeans','b','c'}
         chooseAlgo.set('kmeans') # set the default option
@@ -553,15 +612,10 @@ class PageThree(tk.Frame):
             #self.grid_propagate(0)
 
 
-
-            
-
-
-
-
         buttonSave = ttk.Button(self.tab1, text="Save",
                             command=click_Save, style='Fun.TButton')
-        buttonSave.grid(row=5, column=5, padx=5, sticky=tk.E)
+        buttonSave.grid(row=10, column=5, padx=5, sticky=tk.E)
+        #buttonSave.pack(side="right", expand=True)
 
 
 
@@ -569,7 +623,7 @@ class PageThree(tk.Frame):
         #frame = Frame(root, bd=2, relief=SUNKEN)
         frameHistory=ScrollFrame(self)#ttk.Frame(self, style="My.TFrame")
 
-        frameHistory.grid(row=0, column=4, rowspan=20, sticky=tk.N)
+        frameHistory.grid(row=0, column=4, rowspan=20, sticky=tk.NSEW)
 
 
         res=tk.Label(frameHistory.viewPort, text="Your last Results:", bg=color_bg, fg=color_text)
@@ -653,8 +707,8 @@ class PageThree(tk.Frame):
         print("k Clusters: " + str(nb_clusters))
 
             
-        self.configure(height=640,width=1245)
-        self.grid_propagate(0)
+        #self.configure(height=640,width=1245)
+        #self.grid_propagate(0)
 
    
         ####End of init
@@ -744,7 +798,7 @@ class PageThree(tk.Frame):
                 dim1=self.sliderDimension1.get()-1
                 dim2=self.sliderDimension2.get()-1
 
-        ###PCA or Dimension
+        ###Multidimensional
         if len(X[0])>2:
             self.sliderDimension1 = tk.Scale(self.tab1, from_=1, to=len(X[0]),  bg=color_bg, highlightthickness=0, fg=color_text, orient=tk.HORIZONTAL, length=80) # style="Horizontal.TScale" label='k',
             self.sliderDimension1.bind("<ButtonRelease-1>", self.change_sliderDimension1)
@@ -759,22 +813,40 @@ class PageThree(tk.Frame):
             #ttk.Radiobutton(self.tab1, text="Show PCA:", variable=self.variableDisplay, value=1, command=self.switchDisplay, style="My.TRadiobutton").grid(row=0, column=5, padx=5)
             #ttk.Radiobutton(self.tab1, text="Show Data:", variable=self.variableDisplay, value=2, command=self.switchDisplay, style="My.TRadiobutton").grid(row=0, column=5, padx=5, sticky=tk.S)
             tk.Label(self.tab1, text="Dimensions:", background=color_bg, foreground=color_text).grid(row=0, column=5, padx=5, sticky=tk.S)
+        
+        labelqu1=tk.Label(self.tab1, text="NMI:", background=color_bg, foreground=color_text)
+        labelqu1.grid(row=2, column=5, padx=5, sticky=tk.NW)
+        label_num1=tk.Label(self.tab1, text="__", background=color_bg, foreground=color_text)
+        label_num1.grid(row=2, column=5, padx=5, sticky=tk.NE)
+        labelqu2=tk.Label(self.tab1, text="ARI:", background=color_bg, foreground=color_text)
+        labelqu2.grid(row=2, column=5, padx=5, sticky=tk.W)
+        label_num2=tk.Label(self.tab1, text="__", background=color_bg, foreground=color_text)
+        label_num2.grid(row=2, column=5, padx=5, sticky=tk.E)
 
         if labels is not None:
-            tk.Label(self.tab1, text="NMI:", background=color_bg, foreground=color_text).grid(row=2, column=5, padx=5, sticky=tk.N)
-            label_nmi=tk.Label(self.tab1, text="__", background=color_bg, foreground=color_text)
-            label_nmi.grid(row=2, column=5, padx=5, sticky=tk.NE)
-            tk.Label(self.tab1, text="ARI:", background=color_bg, foreground=color_text).grid(row=2, column=5, padx=5)
-            label_ari=tk.Label(self.tab1, text="__", background=color_bg, foreground=color_text)
-            label_ari.grid(row=2, column=5, padx=5, sticky=tk.E)
+            labelqu1.config(text="NMI:")
+            labelqu2.config(text="ARI:")
+                
+        else:
+            labelqu1.config(text="Mod.:")
+            labelqu2.config(text="Cond.:")
 
-            def click_recalc():
+        def click_recalc():
+            if labels is not None:
                 nmi=round(normalized_mutual_info_score(labels_true=labels, labels_pred=self.clustering.labels_), 3)
                 ari=round(adjusted_rand_score(labels_true=labels, labels_pred=self.clustering.labels_), 3)
-                label_nmi.config(text=nmi)
-                label_ari.config(text=ari)
+                label_num1.config(text=nmi)
+                label_num2.config(text=ari)
+            else:
+                part=[[] for x in range(np.amax(self.clustering.labels_)+1)]
+                for i in range(0, len(X)):
+                    part[self.clustering.labels_[i]].append(i)
+                mod=round(quality.modularity(from_numpy_matrix(admatrix), part),3)
+                cond=round(quality.coverage(from_numpy_matrix(admatrix), part), 3)
+                label_num1.config(text=mod)
+                label_num2.config(text=cond)
 
-            ttk.Button(self.tab1, text="Recalc", command=click_recalc).grid(row=2, column=5, padx=5, sticky=tk.S)
+        ttk.Button(self.tab1, text="Recalc", command=click_recalc).grid(row=2, column=5, padx=5, sticky=tk.S)
             
 
         self.nextNeighbors=[[0 for col in range(len(X))] for row in range(len(X))]
@@ -847,14 +919,18 @@ class PageThree(tk.Frame):
                         lineLastID+=1
 
         fig.canvas = FigureCanvasTkAgg(fig, self.tab1)  #master=root)
-        fig.canvas._tkcanvas.grid(row=0,column=0, columnspan=5, rowspan=5, padx=5)
+        fig.canvas._tkcanvas.grid(row=0,column=0, columnspan=5, rowspan=10, padx=5, sticky=tk.NSEW)
+        #fig.canvas._tkcanvas.pack(side="left", fill="both", expand=True)
         cid = fig.canvas.mpl_connect('button_press_event', self.onclick)
+
+        #self.frameSlidersAndButtons.pack(side="left", fill="y", expand=True)
 
         fig2 = plt.figure(figsize=(3.33,2))
         fig2.patch.set_facecolor(color_bg)
         fig2.tight_layout()
         self.canvas2 = FigureCanvasTkAgg(fig2, self.frameHeatmap)  #master=root)
-        self.canvas2._tkcanvas.grid(row=1, column=0, columnspan=2, sticky=tk.S, padx=5)
+        self.canvas2._tkcanvas.grid(row=1, column=0, columnspan=2, sticky=tk.NSEW, padx=5)
+        #self.canvas2._tkcanvas.pack(side="top", fill="both", expand=True)
 
         ###############Clustering
 
@@ -876,7 +952,8 @@ class PageThree(tk.Frame):
 
          ###Toolbar
         toolbarFrame = ttk.Frame(self.tab1, style="My.TFrame")
-        toolbarFrame.grid(row=5,column=0, columnspan=3, sticky=tk.W, padx=10, pady=10)
+        toolbarFrame.grid(row=10, column=0, columnspan=3, sticky=tk.SW, padx=10, pady=10)
+        #toolbarFrame.pack(side="bottom", expand=False)
         toolbar = NavigationToolbar2Tk(fig.canvas, toolbarFrame)    #Agg
         toolbar.config(background=color_bg)
         toolbar._message_label.config(background=color_bg, foreground=color_text)
@@ -907,9 +984,9 @@ class PageThree(tk.Frame):
 
         self.canvasEigV = FigureCanvasTkAgg(self.figEigVal, self.frameEigenG)  #master=root)
         self.figEigVal.tight_layout()
-        self.canvasEigV._tkcanvas.grid(row=1,column=0, columnspan=3, padx=5, sticky=tk.W)
+        self.canvasEigV._tkcanvas.grid(row=1,column=0, columnspan=3, padx=5, sticky=tk.NSEW)
         lab2=tk.Label(self.frameEigenG, text="Dimensions of Eigenvectores:", bg=color_bg, fg=color_text)
-        lab2.grid(row=0, column=0, )
+        lab2.grid(row=0, column=0)
         self.labDim=tk.Label(self.frameEigenG, text=numb_eig, bg=color_bg, fg=color_text)
         self.labDim.grid(row=0, column=0, sticky=tk.E)
         #self.markedEig.remove()
@@ -969,7 +1046,7 @@ class PageThree(tk.Frame):
 
         self.canvasVecs = FigureCanvasTkAgg(self.figvecs, self.tab2) 
         self.figvecs.tight_layout()
-        self.canvasVecs._tkcanvas.grid(row=0,column=0, padx=5, rowspan=5)
+        self.canvasVecs._tkcanvas.grid(row=0,column=0, padx=5, rowspan=5, sticky=tk.NSEW)
 
         ###Toolbar
         toolbarFrame = ttk.Frame(self.tab2, style="My.TFrame")
@@ -993,7 +1070,7 @@ class PageThree(tk.Frame):
 
         self.canvaspca = FigureCanvasTkAgg(self.figpca, self.tab3) 
         self.figpca.tight_layout()
-        self.canvaspca._tkcanvas.grid(row=0,column=0, padx=5, rowspan=5)
+        self.canvaspca._tkcanvas.grid(row=0,column=0, padx=5, rowspan=5, sticky=tk.NSEW)
 
         self.figpca.canvas.mpl_connect("motion_notify_event", self.hoverpca)
 
@@ -1320,7 +1397,8 @@ class PageThree(tk.Frame):
         plt.tight_layout()
              
         self.canvas2 = FigureCanvasTkAgg(fig2, self.frameHeatmap)  #master=root)
-        self.canvas2._tkcanvas.grid(row=1, column=0, columnspan=2, sticky=tk.S, padx=5)
+        self.canvas2._tkcanvas.grid(row=1, column=0, columnspan=2, sticky=tk.NSEW, padx=5)
+        #self.canvas2._tkcanvas.pack(side="top", fill="both", expand=True)
 
     ###marks point
     def mark_point(self, x=0, delete=False):
